@@ -1,0 +1,81 @@
+type option[T] = Data::Option::Some[T] | Data::Option::None
+
+class Data
+  module Option
+    VERSION: String
+    def self.from: [T] (T?) -> option[T]
+
+    class Some[T]
+      attr_reader value: T
+      def self.[]: [T] (T) -> Some[T]
+      def initialize: (T) -> void
+      def <=>: (None) -> 1
+              | (Some[untyped]) -> (1 | 0 | -1 | nil)
+      def unwrap: -> T
+      def unwrap_or: (untyped) -> T
+      def unwrap_or_else: -> T
+      def expect: (untyped) -> T
+      def and: (untyped) -> option[untyped]
+      def and_then: { (T) -> option[untyped] } -> option[untyped]
+      def or: (untyped) -> Some[T]
+      def or_else: -> Some[T]
+      def xor: (untyped) -> option[untyped]
+      def each: { (T) -> void } -> Some[T]
+      def map: { (T) -> untyped } -> Some[untyped]
+      def filter: { (T) -> boolish } -> option[T]
+      def flat_map: { (T) -> untyped } -> untyped
+      def flatten: -> untyped
+      def map_or: (untyped) { (T) -> untyped } -> untyped
+      def map_or_else: (untyped) { (T) -> untyped } -> untyped
+      def some?: -> true
+      def none?: -> false
+      def some_and?: { (T) -> boolish } -> boolish
+      def none_or?: { (T) -> boolish } -> boolish
+      def to_s: -> String
+      def inspect: -> String
+      def pretty_print: (PP) -> void
+    end
+
+    class None
+      class UnwrapError < StandardError
+        def initialize: (?String) -> void
+      end
+      
+      def self.[]: -> None
+      def initialize: () -> void
+      def <=>: (Some[untyped]) -> -1
+              | (None) -> 0
+      def unwrap: -> untyped
+      def unwrap_or_else: { () -> untyped } -> untyped
+      def unwrap_or: (untyped) -> untyped
+      def expect: (untyped) -> untyped
+      def and: (untyped) -> None
+      def and_then: -> None
+      def or: (untyped) -> untyped
+      def or_else: { () -> untyped } -> untyped
+      def xor: (untyped) -> untyped
+      def each: { (untyped) -> void } -> None
+      def map: { (untyped) -> untyped } -> None
+      def filter: { (untyped) -> untyped } -> None
+      def flat_map: { (untyped) -> untyped } -> None
+      def flatten: -> None
+      def map_or: (untyped) { (untyped) -> untyped } -> untyped
+      def map_or_else: (untyped) -> untyped
+      def some?: -> false
+      def none?: -> true
+      def some_and?: { (untyped) -> untyped } -> false
+      def none_or?: { (untyped) -> untyped } -> true
+      def to_s: -> String
+      def inspect: -> String
+      def pretty_print: (PP) -> void
+    end
+
+    module Refinement
+      def to_option: () -> option[self]
+    end
+  end
+end
+
+module Kernel
+  def Option: (untyped) -> option[untyped]
+end

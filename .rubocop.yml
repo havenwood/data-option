@@ -1,0 +1,58 @@
+plugins:
+  - rubocop-minitest
+  - rubocop-rake
+
+AllCops:
+  TargetRubyVersion: 3.4
+  NewCops: enable
+
+Bundler/GemFilename:
+  Enabled: false
+
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+
+Lint/AmbiguousOperatorPrecedence:
+  Enabled: false
+
+Lint/BinaryOperatorWithIdenticalOperands:
+  Enabled: false
+
+Lint/SuppressedException:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 25
+
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/MethodLength:
+  Max: 42
+
+Minitest/MultipleAssertions:
+  Max: 6
+
+Naming/FileName:
+  Enabled: false
+
+Naming/MethodName:
+  Enabled: false
+
+Naming/RescuedExceptionsVariableName:
+  Enabled: false
+
+Style/Alias:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/MixinUsage:
+  Enabled: false
+
+Style/NumberedParametersLimit:
+  Max: 9
+
+Style/RescueStandardError:
+  Enabled: false
